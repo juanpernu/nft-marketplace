@@ -2,8 +2,8 @@
 require("@nomiclabs/hardhat-waffle");
 require("dotenv").config();
 
-// This should be on .env file or secrets
 const projectId = process.env.PROJECT_ID;
+const privateKey = process.env.PRIVATE_KEY;
 
 module.exports = {
   defaultNetwork: "hardhat",
@@ -12,12 +12,12 @@ module.exports = {
       chainId: 1337,
     },
     mumbai: {
-      url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
-      accounts: [process.env.PRIVATE_KEY],
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: [privateKey],
     },
     mainnet: {
       url: `https://polygon-mainnet.infura.io/v3/${projectId}`,
-      accounts: [process.env.PRIVATE_KEY],
+      accounts: [privateKey],
     },
   },
   solidity: {

@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-// This is the way to interact with IPFS client to
-// upload and download files to the IPFS network
-import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useRouter } from "next/router";
 import Web3Modal from "web3modal";
-
-// Sets the IPFS client to the infura gateway
-const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
-
+import { client } from "../utils";
 import { nftaddress, nftmarketaddress } from "../config";
 
 import NFT from "../artifacts/contracts/NFT.sol/NFT.json";
@@ -40,7 +34,7 @@ export default function CreateItem() {
         }
       );
       // Gets the URL of the file that was uploaded to IPFS
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `https://infura-ipfs.io/ipfs/${added.path}`;
       // Sets the file URL state
       setFileUrl(url);
     } catch (error) {
@@ -64,7 +58,7 @@ export default function CreateItem() {
       // Upload the data to IPFS
       const added = await client.add(data);
       // Gets the URL of the file that was uploaded to IPFS
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      const url = `https://infura-ipfs.io/ipfs/${added.path}`;
 
       // The url is going to be the token URL of the NFT
       createSale(url);
@@ -73,7 +67,7 @@ export default function CreateItem() {
     }
   }
 
-  async function createSale() {
+  async function createSale(url) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -81,7 +75,7 @@ export default function CreateItem() {
 
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
     // Create the token
-    let transaction = await contract.createToken(fileUrl);
+    let transaction = await contract.createToken(url);
     // Await the transaction to succed
     let tx = await transaction.wait();
 

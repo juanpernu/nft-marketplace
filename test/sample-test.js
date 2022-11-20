@@ -49,7 +49,5 @@ describe("NFT Market", function () {
         return item;
       })
     );
-
-    console.log("items: ", items);
   });
 });

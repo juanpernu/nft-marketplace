@@ -18,7 +18,9 @@ export default function Home() {
 
   async function loadNFTs() {
     // Ether provider to retrive data from the blockchain
-    const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.JsonRpcProvider(
+      "https://rpc-mumbai.maticvigil.com"
+    );
     // Reference to the actual token smart contract
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
     // Reference to the actual market smart contract
@@ -108,7 +110,10 @@ export default function Home() {
                 <p className="text-2xl mb-4 font-bold text-white">
                   {nft.price} Matic
                 </p>
-                <button className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded">
+                <button
+                  onClick={() => buyNft(nft)}
+                  className="w-full bg-pink-500 text-white font-bold py-2 px-12 rounded"
+                >
                   Buy
                 </button>
               </div>

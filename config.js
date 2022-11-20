@@ -1,2 +1,4 @@
-export const nftaddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9";
-export const nftmarketaddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+export const projectId = process.env.IPFS_PROJECT_ID;
+export const projectSecret = process.env.IPFS_PROJECT_SECRET;
+export const nftmarketaddress = "0x477aB70DA9F7d95958b1d35967d0aAd9b8ec8D53";
+export const nftaddress = "0xb8e40F72bf007ddc634e1A699F24aE6AFacAEDdA";
